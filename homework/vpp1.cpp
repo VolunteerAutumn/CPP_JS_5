@@ -1,120 +1,109 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-// ====================== TASK 1: Washing Machine ==========================
-struct WashingMachine {
-    string brand;
-    string color;
-    float width;
-    float length;
-    float height;
-    int power;
-    int spinSpeed;
-    int heatingTemp;
+struct ComplexNumber
+{
+	double real;
+	double imaginary;
 };
 
-WashingMachine ShowWashingMachine(WashingMachine w) {
-    cout << "=== Washing Machine ===\n";
-    cout << "Brand: " << w.brand << "\n";
-    cout << "Color: " << w.color << "\n";
-    cout << "Size (W/L/H): " << w.width << " / " << w.length << " / " << w.height << "\n";
-    cout << "Power: " << w.power << "W\n";
-    cout << "Spin Speed: " << w.spinSpeed << " rpm\n";
-    cout << "Heating Temp: " << w.heatingTemp << "°C\n\n";
+ComplexNumber add(ComplexNumber a, ComplexNumber b) {
+	ComplexNumber result;
+	result.real = a.real + b.real;
+	result.imaginary = a.imaginary + b.imaginary;
+	return result;
 }
 
-// ====================== TASK 2: Iron ==========================
-struct Iron {
-    string brand;
-    string model;
-    string color;
-    int minTemp;
-    int maxTemp;
-    bool steam;
-    int power;
-};
-
-Iron ShowIron(Iron i) {
-    cout << "=== Iron ===\n";
-    cout << "Brand: " << i.brand << "\n";
-    cout << "Model: " << i.model << "\n";
-    cout << "Color: " << i.color << "\n";
-    cout << "Temperature range: " << i.minTemp << " - " << i.maxTemp << "°C\n";
-    cout << "Steam: " << (i.steam ? "YES" : "NO") << "\n";
-    cout << "Power: " << i.power << "W\n\n";
+ComplexNumber Subtract(ComplexNumber a, ComplexNumber b) {
+	ComplexNumber result;
+	result.real = a.real - b.real;
+	result.imaginary = a.imaginary - b.imaginary;
+	return result;
 }
 
-// ====================== TASK 3: Boiler ==========================
-struct Boiler {
-    string brand;
-    string color;
-    int power;
-    int capacity;
-    int heatingTemp;
-};
-
-Boiler ShowBoiler(Boiler b) {
-    cout << "=== Boiler ===\n";
-    cout << "Brand: " << b.brand << "\n";
-    cout << "Color: " << b.color << "\n";
-    cout << "Power: " << b.power << "W\n";
-    cout << "Capacity: " << b.capacity << "L\n";
-    cout << "Heating Temp: " << b.heatingTemp << "°C\n\n";
+ComplexNumber Multiply(ComplexNumber a, ComplexNumber b) {
+	ComplexNumber result;
+	result.real = a.real * b.real - a.imaginary * b.imaginary;
+	result.imaginary = a.real * b.imaginary + a.imaginary * b.real;
+	return result;
 }
 
-// ====================== TASK 4: Animal ==========================
-struct Animal {
-    string name;
-    string typeClass;
-    string nickname;
-};
-
-Animal FillAnimal(Animal a) {
-    cout << "Enter animal name (species): ";
-    getline(cin, a.name);
-
-    cout << "Enter animal class (mammal, reptile, etc): ";
-    getline(cin, a.typeClass);
-
-    cout << "Enter nickname: ";
-    getline(cin, a.nickname);
+ComplexNumber Divide(ComplexNumber a, ComplexNumber b) {
+	ComplexNumber result;
+	double denominator = b.real * b.real + b.imaginary * b.imaginary;
+	result.real = (a.real * b.real + a.imaginary * b.imaginary) / denominator;
+	result.imaginary = (a.imaginary * b.real - a.real * b.imaginary) / denominator;
+	return result;
 }
 
-Animal PrintAnimal(Animal a) {
-    cout << "=== Animal ===\n";
-    cout << "Species: " << a.name << "\n";
-    cout << "Class: " << a.typeClass << "\n";
-    cout << "Nickname: " << a.nickname << "\n\n";
+void display(ComplexNumber c) {
+	cout << c.real << " + " << c.imaginary << "i" << endl;
 }
 
-Animal MakeSound(Animal a) {
-    cout << a.nickname << " is making a sound: ";
-    if (a.typeClass == "dog") cout << "WOOF!\n";
-    else if (a.typeClass == "cat") cout << "MEOW!\n";
-    else cout << "Unknown mysterious sound 👀\n";
-}
-
-// ============================ MAIN ===============================
 int main() {
-    // --- TASK 1 ---
-    WashingMachine w = { "Samsung", "White", 60.0f, 55.0f, 85.0f, 2000, 1400, 90 };
-    ShowWashingMachine(w);
+	cout << "PROGRAM: Complex Number Operations";
 
-    // --- TASK 2 ---
-    Iron i = { "Philips", "SteamMax 3000", "Blue", 120, 240, true, 1800 };
-    ShowIron(i);
+	ComplexNumber num1, num2, result;
+	cout << "\nEnter real and imaginary parts of first complex number >>> ";
+	cin >> num1.real >> num1.imaginary;
+	cout << "Enter real and imaginary parts of second complex number >>> ";
+	cin >> num2.real >> num2.imaginary;
 
-    // --- TASK 3 ---
-    Boiler b = { "Ariston", "Silver", 1500, 80, 75 };
-    ShowBoiler(b);
+	cout << "Enter the operation to perform!\n";
+	cout << "1) Addition\n2) Subtraction\n3) Multiplication\n4) Division\n5) Exit\n";
 
-    // --- TASK 4 ---
-    Animal a;
-    cin.ignore();
-    FillAnimal(a);
-    PrintAnimal(a);
-    MakeSound(a);
+	cout << "First Complex Number: ";
+	display(num1);
+	cout << "Second Complex Number: ";
+	display(num2);
 
-    return 0;
+	cout << "Choice >>> ";
+	int choice = 0;
+
+	bool going_on = true;
+
+	do {
+		cout << "Choice >>> ";
+		if (!(cin >> choice)) {
+			cout << "Invalid input.\n";
+			break;
+		}
+
+		switch (choice) {
+		case 1:
+			result = add(num1, num2);
+			cout << "Addition: ";
+			display(result);
+			break;
+		case 2:
+			result = Subtract(num1, num2);
+			cout << "Subtraction: ";
+			display(result);
+			break;
+		case 3:
+			result = Multiply(num1, num2);
+			cout << "Multiplication: ";
+			display(result);
+			break;
+		case 4: {
+			double denominator = num2.real * num2.real + num2.imaginary * num2.imaginary;
+			if (denominator == 0.0) {
+				cout << "Error: Division by zero (second complex number has zero magnitude).\n";
+			}
+			else {
+				result = Divide(num1, num2);
+				cout << "Division: ";
+				display(result);
+			}
+			break;
+		}
+		case 5:
+			going_on = false;
+			cout << "Exiting program.\n";
+			break;
+		default:
+			cout << "Invalid choice.\n";
+			break;
+		}
+	} while (going_on);
 }
