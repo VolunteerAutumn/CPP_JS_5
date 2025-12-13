@@ -1,6 +1,3 @@
-// -------------------------
-// Task 1: Circle Class
-// -------------------------
 class Circle {
     constructor(radius) {
         this._radius = radius;
@@ -27,16 +24,12 @@ class Circle {
     }
 }
 
-// Example usage
 const circle = new Circle(5);
 console.log("Circle radius:", circle.radius);
 console.log("Circle diameter:", circle.diameter);
 console.log("Circle area:", circle.area());
 console.log("Circle circumference:", circle.circumference());
 
-// -------------------------
-// Task 2: HtmlElement Class
-// -------------------------
 class HtmlElement {
     constructor(tag, selfClosing = false, text = "") {
         this.tag = tag;
@@ -83,9 +76,6 @@ class HtmlElement {
     }
 }
 
-// -------------------------
-// Task 3: CssClass Class
-// -------------------------
 class CssClass {
     constructor(name) {
         this.name = name;
@@ -107,9 +97,6 @@ class CssClass {
     }
 }
 
-// -------------------------
-// Task 4: HtmlBlock Class
-// -------------------------
 class HtmlBlock {
     constructor(rootElement) {
         this.root = rootElement;
@@ -126,9 +113,6 @@ class HtmlBlock {
     }
 }
 
-// -------------------------
-// Create HTML Block Example
-// -------------------------
 const wrapper = new HtmlElement('div');
 wrapper.setAttribute('id', 'wrapper');
 wrapper.setAttribute('class', 'wrap');
@@ -157,11 +141,9 @@ function createBlock() {
     return block;
 }
 
-// Add two blocks
 wrapper.addChild(createBlock());
 wrapper.addChild(createBlock());
 
-// Create CSS
 const wrapCss = new CssClass('wrap');
 wrapCss.setStyle('display', 'flex');
 
@@ -175,12 +157,10 @@ imgCss.setStyle('width', '100%');
 const textCss = new CssClass('text');
 textCss.setStyle('text-align', 'justify');
 
-// Combine into HtmlBlock
 const htmlBlock = new HtmlBlock(wrapper);
 htmlBlock.addCssClass(wrapCss);
 htmlBlock.addCssClass(blockCss);
 htmlBlock.addCssClass(imgCss);
 htmlBlock.addCssClass(textCss);
 
-// Output to page
 document.write(htmlBlock.getCode());
